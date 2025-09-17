@@ -1,0 +1,40 @@
+### 1. Criar uma nova task
+POST http://localhost:8080/api/v1/tasks HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Java Study",
+    "description": "Study Java Stream API",
+    "status": "PENDING"
+}
+
+### 2. Update uma task
+PATCH http://localhost:8080/api/v1/tasks/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Golang Study",
+    "description": "Golang Gin Studies",
+    "status": "DONE"
+}
+
+### 3. Delete uma task
+DELETE http://localhost:8080/api/v1/tasks/1 HTTP/1.1
+Content-Type: application/json
+
+{
+}
+
+### 4. Encontrar uma task
+GET http://localhost:8080/api/v1/tasks/1 HTTP/1.1
+Content-Type: application/json
+
+{
+}
+
+### 5. Listar todas as tasks
+GET http://localhost:8080/api/v1/tasks HTTP/1.1
+Content-Type: application/json
+
+{
+}
