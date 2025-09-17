@@ -118,7 +118,7 @@ This project uses the following tools:
 
 ## 💻 Usage
 
-After the API is running, you can use the Swagger UI to interact with the available endpoints for tasks. The API can be accessed at `http://localhost:$PORT/swagger/index.html`.
+After the API is running, you can use the Swagger UI to interact with the available endpoints for tasks. The API can be accessed at `http://localhost:$PORT/swagger-ui`.
 
 Default $PORT if not provided=8080.
 
