@@ -1,6 +1,7 @@
 package br.com.gustavobarez.resource;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import br.com.gustavobarez.entity.Task;
 import br.com.gustavobarez.entity.UpdateTaskRequestDTO;
@@ -9,6 +10,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -61,6 +63,13 @@ public class TaskResource {
         task.setDeletedAt(LocalDateTime.now());
         task.persist();
         return Response.ok().build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response findTask(@PathParam("id") Long id) {
+        Task task = Task.findById(id);
+        return Response.ok(task).build();
     }
 
 }
