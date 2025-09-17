@@ -2,6 +2,7 @@ package br.com.gustavobarez.resource;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -108,7 +109,10 @@ public class TaskResource {
     })
     public Response findTask(
             @Parameter(description = "Task ID", required = true) @PathParam("id") Long id) {
-        Task task = Task.findById(id);
+        Optional<Task> task = Task.findByIdOptional(id);
+        if (task.isEmpty()) {
+            throw new IllegalArgumentException("Task ID not found");
+        }
         return Response.ok(task).build();
     }
 
