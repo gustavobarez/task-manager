@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import br.com.gustavobarez.entity.Task;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -20,7 +21,7 @@ public class TaskResource {
 
     @POST
     @Transactional
-    public Response createTask(Task task) {
+    public Response createTask(@Valid Task task) {
         task.setCreatedAt(LocalDateTime.now());
         task.persist();
         return Response.ok(task).build();

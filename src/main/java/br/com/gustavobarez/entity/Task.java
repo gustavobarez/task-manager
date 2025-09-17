@@ -8,15 +8,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "task")
 public class Task extends PanacheEntity {
 
+    @NotNull(message = "Title cannot be null")
     private String title;
 
+    @NotNull(message = "Description cannot be null")
     private String description;
 
+    @NotNull(message = "Status cannot be null")
     @Enumerated(EnumType.STRING)
     private Status status;
 
