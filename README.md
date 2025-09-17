@@ -1,76 +1,141 @@
-# task-manager
+# Task Manager - Task Management
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+![JAVA_BADGE](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![QUARKUS_BADGE](https://img.shields.io/badge/quarkus-%234695eb.svg?style=for-the-badge&logo=quarkus&logoColor=white)
+![AWS_BADGE](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![DOCKER_COMPOSE](https://img.shields.io/badge/Docker%20Compose-%231d63ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![TERRAFORM](https://img.shields.io/badge/Terraform-%23623ce4.svg?style=for-the-badge&logo=terraform&logoColor=white)
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+This project is a task management API, built with Java 21 and Quarkus. The API provides a simple and efficient way to create, manage, and track tasks with a clean RESTful interface.
 
-## Running the application in dev mode
+---
 
-You can run your application in dev mode that enables live coding using:
+## 🚀 Features
 
-```shell script
-./mvnw quarkus:dev
+- Task Management: Complete CRUD operations for creating, reading, updating, and deleting tasks.
+- RESTful API: Clean and intuitive REST endpoints following best practices.
+- API Documentation: Interactive API exploration and documentation provided by Swagger UI (OpenAPI).
+- Database Integration: PostgreSQL database integration for reliable data persistence.
+- Containerization: Ready to deploy using Docker, with optimized container configuration.
+- Cloud-Ready: Full AWS deployment infrastructure using Terraform with ECS Fargate, RDS, and Application Load Balancer.
+
+## 🏗️ Installation
+
+To use this project, you need to follow these steps:
+
+1. Clone the repository: `git clone https://github.com/gustavobarez/task-manager.git`
+2. Install the dependencies: `mvn clean package`
+3. Run the application: `mvn quarkus:dev`
+
+## ⚙️ Makefile Commands
+
+The project includes a Makefile to help you manage common tasks more easily. Here's a list of the available commands and a brief description of what they do:
+
+### Local Development
+
+- `make run`: Run the application locally
+- `make build`: Build the application and package a JAR
+- `make test`: Run tests for all packages in the project.
+- `make docs`: Generate Swagger API documentation
+- `make clean`: Clean project build artifacts
+
+### Docker Commands
+
+- `make docker-build`: Build the Docker image for the application
+- `make docker-run`: Run the application in a Docker container
+- `make docker-stop`: Stop and remove all containers defined in docker-compose.yml
+
+### AWS Deployment Commands
+
+- `make ecr-login`: Authenticate Docker with AWS ECR
+- `make ecr-push`: Build and push Docker image to ECR repository
+- `make deploy-infra`: Deploy AWS infrastructure using Terraform
+- `make deploy-app`: Update ECS service with new application version
+- `make deploy`: Complete deployment (infrastructure + application)
+
+### Monitoring and Management
+
+- `make logs`: View real-time logs from ECS containers
+- `make status`: Check ECS service status
+- `make destroy`: Destroy all AWS infrastructure
+
+To use these commands, simply type `make` followed by the desired command in your terminal. For example:
+
+```sh
+make run
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+## 🐳 Docker and Docker Compose
 
-## Packaging and running the application
+This project includes a `Dockerfile` and `docker-compose.yml` file for easy containerization and deployment. Here are the most common Docker and Docker Compose commands you may want to use:
 
-The application can be packaged using:
+- `docker build -t your-image-name .`: Build a Docker image for the project. Replace `your-image-name` with a name for your image.
+- `docker run -p 8080:8080 -e PORT=8080 your-image-name`: Run a container based on the built image. Replace `your-image-name` with the name you used when building the image. You can change the port number if necessary.
 
-```shell script
-./mvnw package
+If you want to use Docker Compose, follow these commands:
+
+- `docker compose build`: Build the services defined in the `docker-compose.yml` file.
+- `docker compose up`: Run the services defined in the `docker-compose.yml` file.
+
+To stop and remove containers, networks, and volumes defined in the `docker-compose.yml` file, run:
+
+```sh
+docker-compose down
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+For more information on Docker and Docker Compose, refer to the official documentation:
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+- [Docker](https://docs.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-If you want to build an _über-jar_, execute the following command:
+## ☁️ Terraform
 
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
+This project uses Terraform to manage infrastructure as code (IaC). The configuration files define the necessary cloud resources to run the application. To get started, navigate to the `terraform` directory and run the following commands:
+
+- `terraform init`: Initializes the working directory by downloading the required providers and modules. This command should be run first.
+- `terraform plan`: Creates an execution plan, allowing you to preview the changes Terraform will make to your infrastructure before applying them.
+- `terraform apply`: Applies the changes to create, update, or delete resources according to the configuration files.
+- `terraform destroy`: Removes all the resources managed by the Terraform configuration. Use this command with caution.
+
+Here is the typical workflow:
+
+```sh
+cd terraform/
+terraform init
+terraform plan
+terraform apply
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+## 🛠️ Used Tools
 
-## Creating a native executable
+This project uses the following tools:
 
-You can create a native executable using:
+- [Java](https://docs.oracle.com/en/java/javase/21/) for backend development
+- [Quarkus](https://quarkus.io/guides/#) framework for building APIs
+- [Docker](https://docs.docker.com/) for containerization
+- [Terraform](https://developer.hashicorp.com/terraform/docs) for IAC
+- [Swagger](https://swagger.io/) for API documentation and testing
 
-```shell script
-./mvnw package -Dnative
-```
+## 💻 Usage
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+After the API is running, you can use the Swagger UI to interact with the available endpoints for tasks. The API can be accessed at `http://localhost:$PORT/swagger/index.html`.
 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
+Default $PORT if not provided=8080.
 
-You can then execute your native executable with: `./target/task-manager-1.0.0-SNAPSHOT-runner`
+## 🤝 Contributing
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+To contribute to this project, please follow these guidelines:
 
-## Related Guides
+1. Fork the repository
+2. Create a new branch: `git checkout -b feature/your-feature-name`
+3. Make your changes and commit them using Conventional Commits
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Submit a pull request
 
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- Hibernate ORM ([guide](https://quarkus.io/guides/hibernate-orm)): Define your persistent model with Hibernate ORM and Jakarta Persistence
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
+## 📝 License
 
-## Provided Code
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### Hibernate ORM
+## ❤️ Credits
 
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+This project was created by [Gustavo Barez](https://github.com/gustavobarez).
