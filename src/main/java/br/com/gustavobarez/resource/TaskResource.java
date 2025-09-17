@@ -8,6 +8,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -50,6 +51,16 @@ public class TaskResource {
         task.setUpdatedAt(LocalDateTime.now());
         task.persist();
         return Response.ok(task).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Transactional
+    public Response deleteTask(@PathParam("id") Long id) {
+        Task task = Task.findById(id);
+        task.setDeletedAt(LocalDateTime.now());
+        task.persist();
+        return Response.ok().build();
     }
 
 }
