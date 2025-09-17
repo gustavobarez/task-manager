@@ -11,8 +11,8 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -30,9 +30,10 @@ public class TaskResource {
         return Response.ok(task).build();
     }
 
-    @PATCH
+    @PATCH()
+    @Path("/{id}")
     @Transactional
-    public Response updateTask(@QueryParam("id") Long id, UpdateTaskRequestDTO request) {
+    public Response updateTask(@PathParam("id") Long id, UpdateTaskRequestDTO request) {
         if (request.title() == null && request.description() == null && request.status() == null) {
             throw new IllegalArgumentException("All fields cannot be empty");
         }
