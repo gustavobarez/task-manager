@@ -72,4 +72,10 @@ public class TaskResource {
         return Response.ok(task).build();
     }
 
+    @GET
+    public Response findAllTask() {
+        List<Task> tasks = Task.listAll();
+        return Response.ok(tasks).build();
+    }
+
 }
