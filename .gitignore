@@ -46,3 +46,8 @@ nb-configuration.xml
 
 # Arch Linux
 .tool-versions
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
